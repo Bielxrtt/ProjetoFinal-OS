@@ -1,4 +1,5 @@
 ﻿using Os.Domain.Base;
+using Os.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,8 @@ namespace Os.Domain.Entities
 
         
         public ICollection<Services> ServiceOrders { get; set; }
+
+        
     }
 
 }

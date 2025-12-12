@@ -1,21 +1,21 @@
-﻿using FluentValidation;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Os.Domain.Entities;
 
-namespace Os.Service.Mapping
+namespace Os.Repository.Mapping
 {
-    
-
-    public class UserSystemValidator : AbstractValidator<UserSystem>
+    public class UserSystemMap : IEntityTypeConfiguration<UserSystem>
     {
-        public UserSystemValidator()
+        public void Configure(EntityTypeBuilder<UserSystem> builder)
         {
-            RuleFor(u => u.Password)
-                .NotEmpty().WithMessage("A senha é obrigatória.")
-                .MaximumLength(255).WithMessage("A senha deve ter no máximo 255 caracteres.");
+            builder.ToTable("UserSystem");
+            builder.HasKey(u => u.Id);
 
-            RuleFor(u => u.AcessLevel)
-                .NotEmpty().WithMessage("O nível de acesso é obrigatório.");
-                
+            builder.Property(u => u.Password).IsRequired().HasMaxLength(255);
+            builder.Property(u => u.AcessLevel).IsRequired().HasMaxLength(50);
+
+            builder.Property(u => u.IdStatus).IsRequired();
+            builder.HasOne(u => u.Status).WithMany().HasForeignKey(u => u.IdStatus);
         }
     }
 }

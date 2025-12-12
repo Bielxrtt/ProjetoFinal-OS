@@ -1,24 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Os.Domain\Os.Domain.csproj" />
-    <ProjectReference Include="..\Os.Repository\Os.Repository.csproj" />
-    <ProjectReference Include="..\Os.Service\Os.Service.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Os.Domain\Os.Domain.csproj" />
+		<ProjectReference Include="..\Os.Repository\Os.Repository.csproj" />
+		<ProjectReference Include="..\Os.Service\Os.Service.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Config\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.20" />
-    <PackageReference Include="ReaLTaiizor" Version="3.8.1.4" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.5" />
+		<PackageReference Include="ReaLTaiizor" Version="3.8.1.4" />
+	</ItemGroup>
 
 </Project>

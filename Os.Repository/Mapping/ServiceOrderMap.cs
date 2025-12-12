@@ -55,7 +55,7 @@ namespace Os.Repository.Mapping
             // RELACIONAMENTO N:N → Serviços
             builder.HasMany(prop => prop.Services)
                 .WithOne(prop => prop.ServiceOrder)
-                .HasForeignKey(prop => prop.ServiceOrder_Id_Service_Order);
+                .HasForeignKey(prop => prop.ServiceId);
 
             // RELACIONAMENTO N:N → Produtos
             builder.HasMany(prop => prop.Products)
@@ -71,10 +71,10 @@ namespace Os.Repository.Mapping
         {
             builder.ToTable("Products_has_ServiceOrder");
 
-            // PK
+            
             builder.HasKey(prop => prop.Id);
 
-            // FK → Product
+            
             builder.Property(prop => prop.ProductId)
                 .IsRequired();
 
@@ -82,7 +82,7 @@ namespace Os.Repository.Mapping
                 .WithMany()
                 .HasForeignKey(prop => prop.ProductId);
 
-            // FK → ServiceOrder
+            
             builder.Property(prop => prop.ServiceOrder_Id_Service_Order)
                 .IsRequired();
 
@@ -99,18 +99,18 @@ namespace Os.Repository.Mapping
         {
             builder.ToTable("ServiceOrder_has_Service");
 
-            // PK
+            
             builder.HasKey(prop => prop.Id);
 
-            // FK → ServiceOrder
-            builder.Property(prop => prop.ServiceOrder_Id_Service_Order)
+            
+            builder.Property(prop => prop.ServiceOrderId)
                 .IsRequired();
 
             builder.HasOne(prop => prop.ServiceOrder)
                 .WithMany(prop => prop.Services)
-                .HasForeignKey(prop => prop.ServiceOrder_Id_Service_Order);
+                .HasForeignKey(prop => prop.ServiceOrderId);
 
-            // FK → Service
+            
             builder.Property(prop => prop.ServiceId)
                 .IsRequired();
 
@@ -118,7 +118,7 @@ namespace Os.Repository.Mapping
                 .WithMany()
                 .HasForeignKey(prop => prop.ServiceId);
 
-            // Campos adicionais
+            
             builder.Property(prop => prop.Service_TypeService)
                 .HasMaxLength(200);
 

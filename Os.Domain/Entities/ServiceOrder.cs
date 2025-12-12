@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Os.Domain.Entities
 {
-    
+
     public class ServiceOrder : BaseEntity<int>
     {
         public ServiceOrder()
@@ -45,7 +45,7 @@ namespace Os.Domain.Entities
         public decimal Price { get; set; }
         public string Note { get; set; }
 
-        
+
         public int IdStatus { get; set; }
         public Status Status { get; set; }
 
@@ -62,52 +62,8 @@ namespace Os.Domain.Entities
         public ICollection<ServiceOrder_has_Service> Services { get; set; }
         public ICollection<Products_has_ServiceOrder> Products { get; set; }
     }
+}
+
 
    
-    public class Products_has_ServiceOrder : BaseEntity<int>
-    {
-        public Products_has_ServiceOrder() { }
-
-        public Products_has_ServiceOrder(
-            int id,
-            int productId,
-            Product product,
-            int serviceOrderId,
-            ServiceOrder serviceOrder
-        ) : base(id)
-        {
-            ProductId = productId;
-            Product = product;
-            ServiceOrder_Id_Service_Order = serviceOrderId;
-            ServiceOrder = serviceOrder;
-        }
-
-        // FK → Product
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
-
-        // FK → ServiceOrder
-        public int ServiceOrder_Id_Service_Order { get; set; }
-        public ServiceOrder ServiceOrder { get; set; }
-    }
-
-    
-    public class ServiceOrder_has_Service : BaseEntity<int>
-    {
-        public ServiceOrder_has_Service() { }
-
-        public ServiceOrder_has_Service(int id) : base(id) { }
-
-        // FK → ServiceOrder
-        public int ServiceOrder_Id_Service_Order { get; set; }
-        public ServiceOrder ServiceOrder { get; set; }
-
-        // FK → Service
-        public int ServiceId { get; set; }
-        public Services Service { get; set; }
-
-        
-        public string Service_TypeService { get; set; }
-        public int Service_Item_TypeItem { get; set; }
-    }
-}
+   

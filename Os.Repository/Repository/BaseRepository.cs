@@ -3,7 +3,7 @@ using Os.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace IFSPStore.Repository.Repository
+namespace Os.Repository.Repository
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity<int>
     {
@@ -34,6 +34,7 @@ namespace IFSPStore.Repository.Repository
         {
             _mysSqlContext.SaveChanges();
         }
+
         public void Delete(object id)
         {
             _mysSqlContext.Set<TEntity>().Remove(Select(id)!);
@@ -65,7 +66,5 @@ namespace IFSPStore.Repository.Repository
             }
             return dbContext.ToList().Find(x => x.Id == (int)id);
         }
-
-
     }
 }

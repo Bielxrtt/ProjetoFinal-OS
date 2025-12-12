@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using IFSPStore.Repository.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using Os.Domain.Base;
 using Os.Domain.Entities;
 using Os.Repository.Context;
-
+using Os.Service.Service;
+using Os.Repository.Repository; 
 using System;
 using System.IO;
 
-// Alias para evitar conflito com "Service" do .NET
+
 using ServiceEntity = Os.Domain.Entities.Services;
 
 namespace Os.App.Infra
@@ -22,19 +22,38 @@ namespace Os.App.Infra
 
         public static void ConfigureServices()
         {
-            // Configuração do banco
-            var dbConfigFile = "Config/DBConfig.txt";
+           
+            string dbConfigFile = @"C:\Os\DbConfig.txt";
+
+            if (!File.Exists(dbConfigFile))
+            {
+                dbConfigFile = "Config/DBConfig.txt";
+            }
+
+            if (!File.Exists(dbConfigFile))
+            {
+                throw new FileNotFoundException($"O arquivo de configuração do banco não foi encontrado em: {Path.GetFullPath(dbConfigFile)}. Crie a pasta C:\\Os\\ e coloque o arquivo DbConfig.txt lá.");
+            }
+
             var strCon = File.ReadAllText(dbConfigFile);
 
             services = new ServiceCollection();
 
+            
             services.AddDbContext<OsContext>(options =>
             {
                 options.LogTo(Console.WriteLine);
+                
                 options.UseMySQL(strCon);
             });
 
+            
+
             #region Repositories
+            
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
+            
             services.AddScoped<IBaseRepository<Client>, BaseRepository<Client>>();
             services.AddScoped<IBaseRepository<Device>, BaseRepository<Device>>();
             services.AddScoped<IBaseRepository<Product>, BaseRepository<Product>>();
@@ -45,19 +64,21 @@ namespace Os.App.Infra
             #endregion
 
             #region Services
-            // Nenhum serviço registrado por enquanto (não há classes concretas)
+            
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
             #endregion
 
             #region AutoMapper
             services.AddSingleton(
                 new MapperConfiguration(cfg =>
                 {
-                    // Adicione mapeamentos aqui se necessário
+                    
                 },
                 NullLoggerFactory.Instance).CreateMapper()
             );
             #endregion
 
+            
             serviceProvider = services.BuildServiceProvider();
         }
     }

@@ -37,7 +37,7 @@ namespace Os.Domain.Entities
 
         
 
-        public ICollection<ServiceOrder_has_Service> ServiceOrders { get; set; }
+       
     }
 
 }
