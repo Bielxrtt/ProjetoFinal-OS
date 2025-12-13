@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ReaLTaiizor.Forms;
 
-namespace Os.App.Others
+namespace Os.App.Base
 {
-    public partial class Form1 : Form
+    public partial class BaseForm : LostForm
     {
-        public Form1()
+        public BaseForm()
         {
             InitializeComponent();
         }

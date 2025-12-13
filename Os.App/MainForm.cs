@@ -1,4 +1,6 @@
-﻿using Os.App.Infra;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Os.App.Infra;
+using Os.App.Others;
 using Os.Domain.Entities; // Adicione isso
 using ReaLTaiizor.Forms;
 
@@ -13,6 +15,7 @@ namespace Os.App
         {
             InitializeComponent();
             CarregarPermissoes();
+            LoginLoad();
         }
 
         private void CarregarPermissoes()
@@ -30,5 +33,19 @@ namespace Os.App
                 }
             }
         }
+
+        private void LoginLoad()
+        {
+            var login = ConfigureDI.serviceProvider!.GetService<Login>();
+            if (login != null && !login.IsDisposed)
+            {
+                if (login.ShowDialog() != DialogResult.OK)
+                {
+                    Environment.Exit(0);
+                }
+
+            }
+        }
+
     }
 }
