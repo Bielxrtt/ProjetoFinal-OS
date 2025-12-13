@@ -10,16 +10,16 @@ namespace Os.Domain.Entities
 {
     public class Client : BaseEntity<int>
     {
-      
-        public Client() 
-        { 
-        
+
+        public Client()
+        {
+
         }
 
         public Client(int id, string name, string phone, string email, string adress,
             DateTime register_Date, int idDevice, Device device, ICollection<Services> serviceOrders) : base(id)
         {
-            
+
             Name = name;
             Phone = phone;
             Email = email;
@@ -37,13 +37,13 @@ namespace Os.Domain.Entities
         public string Adress { get; set; }
         public DateTime Register_Date { get; set; }
 
-        public int IdDevice { get; set; }
+        public int? IdDevice { get; set; }
         public Device Device { get; set; }
 
-        
+
         public ICollection<Services> ServiceOrders { get; set; }
 
-        
+
     }
 
 }

@@ -7,16 +7,17 @@ namespace Os.Domain.Entities
     {
         public UserSystem() { }
 
+        // ADICIONE ESTAS DUAS PROPRIEDADES:
+        public string Name { get; set; }
+        public string Login { get; set; }
+
         public string Password { get; set; }
-        public string AcessLevel { get; set; } // Adicione o { get; set; }
+        public string AcessLevel { get; set; }
 
         public int IdStatus { get; set; }
         public Status Status { get; set; }
 
-        // CORREÇÃO: Tipo correto é ServiceOrder
         public ICollection<ServiceOrder> ServiceOrders { get; set; }
-        // Dentro de ServiceOrder.cs
-        public ICollection<Products_has_ServiceOrder> Products { get; set; }
-        public ICollection<ServiceOrder_has_Service> Services { get; set; }
+        public ICollection<Services> Services { get; set; }
     }
 }

@@ -17,8 +17,8 @@ namespace Os.Repository.Mapping
             builder.Property(c => c.Adress).IsRequired().HasMaxLength(50);
             builder.Property(c => c.Register_Date);
 
-            
-            builder.Property(c => c.IdDevice).IsRequired();
+
+            builder.Property(c => c.IdDevice).IsRequired(false);
             builder.HasOne(c => c.Device).WithMany().HasForeignKey(c => c.IdDevice);
         }
     }
