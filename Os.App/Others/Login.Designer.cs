@@ -120,6 +120,7 @@
             btnCancel.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
             btnCancel.UseAccentColor = false;
             btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnOk
             // 
@@ -129,17 +130,18 @@
             btnOk.HighEmphasis = true;
             btnOk.Icon = null;
             btnOk.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnOk.Location = new Point(207, 366);
+            btnOk.Location = new Point(275, 366);
             btnOk.Margin = new Padding(4, 6, 4, 6);
             btnOk.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnOk.Name = "btnOk";
             btnOk.NoAccentTextColor = Color.Empty;
-            btnOk.Size = new Size(158, 36);
+            btnOk.Size = new Size(64, 36);
             btnOk.TabIndex = 3;
             btnOk.Text = "Ok";
             btnOk.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
             btnOk.UseAccentColor = false;
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += btnOk_Click;
             // 
             // Login
             // 
