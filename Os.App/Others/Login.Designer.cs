@@ -43,7 +43,7 @@
             txtLogin.BackgroundImageLayout = ImageLayout.None;
             txtLogin.CharacterCasing = CharacterCasing.Normal;
             txtLogin.Depth = 0;
-            txtLogin.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtLogin.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtLogin.HideSelection = true;
             txtLogin.Hint = "Login";
             txtLogin.LeadingIcon = null;
@@ -75,7 +75,7 @@
             txtPassword.BackgroundImageLayout = ImageLayout.None;
             txtPassword.CharacterCasing = CharacterCasing.Normal;
             txtPassword.Depth = 0;
-            txtPassword.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtPassword.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtPassword.HideSelection = true;
             txtPassword.Hint = "Password";
             txtPassword.LeadingIcon = null;
@@ -105,7 +105,7 @@
             btnCancel.BackColor = Color.Gray;
             btnCancel.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
             btnCancel.Depth = 0;
-            btnCancel.ForeColor = SystemColors.ButtonShadow;
+            btnCancel.ForeColor = SystemColors.WindowFrame;
             btnCancel.HighEmphasis = true;
             btnCancel.Icon = null;
             btnCancel.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
