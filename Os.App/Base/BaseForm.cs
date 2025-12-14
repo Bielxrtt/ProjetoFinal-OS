@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ReaLTaiizor.Forms;
+namespace Os.App.Base;
+using ReaLTaiizor.Controls;
+
 
 namespace Os.App.Base
 {
