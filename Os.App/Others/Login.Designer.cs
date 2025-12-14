@@ -84,7 +84,7 @@
             txtPassword.MaxLength = 32767;
             txtPassword.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             txtPassword.Name = "txtPassword";
-            txtPassword.PasswordChar = '\0';
+            txtPassword.PasswordChar = '*';
             txtPassword.PrefixSuffixText = null;
             txtPassword.ReadOnly = false;
             txtPassword.RightToLeft = RightToLeft.No;
@@ -117,7 +117,7 @@
             btnCancel.Size = new Size(77, 36);
             btnCancel.TabIndex = 2;
             btnCancel.Text = "Cancel";
-            btnCancel.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnCancel.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             btnCancel.UseAccentColor = false;
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
@@ -138,7 +138,7 @@
             btnOk.Size = new Size(64, 36);
             btnOk.TabIndex = 3;
             btnOk.Text = "Ok";
-            btnOk.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnOk.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             btnOk.UseAccentColor = false;
             btnOk.UseVisualStyleBackColor = true;
             btnOk.Click += btnOk_Click;
@@ -147,12 +147,14 @@
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             BorderColor = Color.SlateGray;
             ClientSize = new Size(423, 450);
             Controls.Add(btnOk);
             Controls.Add(btnCancel);
             Controls.Add(txtPassword);
             Controls.Add(txtLogin);
+            HeaderColor = Color.Gray;
             Image = (Image)resources.GetObject("$this.Image");
             Name = "Login";
             Text = "Os Login";

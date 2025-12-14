@@ -12,8 +12,9 @@ namespace Os.Service.Validators
     {
         public UserSystemValidator() 
         {
-            RuleFor(c => c.Password).NotEmpty().WithMessage("Nome do cliente é obrigatório");
-            RuleFor(c => c.AcessLevel).NotEmpty().WithMessage("Telefone do cliente é orbigatório");
+            RuleFor(c => c.Password).NotEmpty().WithMessage("Senha é obrigatório");
+            RuleFor(c => c.AcessLevel).NotEmpty().WithMessage("Nível de acesso é obrigatório");
+            RuleFor(c => c.Login).NotEmpty().WithMessage("Nível de acesso é obrigatório");
         }
 
     }

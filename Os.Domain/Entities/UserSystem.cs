@@ -7,7 +7,7 @@ namespace Os.Domain.Entities
     {
         public UserSystem() { }
 
-        // ADICIONE ESTAS DUAS PROPRIEDADES:
+        
         public string Name { get; set; }
         public string Login { get; set; }
 
