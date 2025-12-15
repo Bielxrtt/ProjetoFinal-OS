@@ -1,51 +1,85 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Os.App.Infra;
+using Os.App.Register; // Para acessar as telas de cadastro
 using Os.App.Others;
-using Os.Domain.Entities; // Adicione isso
+using Os.Domain.Entities;
 using ReaLTaiizor.Forms;
+using System;
+using System.Windows.Forms;
 
 namespace Os.App
 {
     public partial class MainForm : LostForm
     {
-        // Propriedade para guardar o usuário logado
-        public static UserSystem CurrentUser { get; set; }
-
         public MainForm()
         {
             InitializeComponent();
-            CarregarPermissoes();
-            LoginLoad();
+            ConfigurarVisualizacaoUsuario();
         }
 
-        private void CarregarPermissoes()
+        private void ConfigurarVisualizacaoUsuario()
         {
-            // Exemplo: Mostrar o nome no título ou em uma Label
-            if (CurrentUser != null)
-            {
-                // Se tiver algum controle de Label, use: lblUsuario.Text = CurrentUser.Name;
+            // Verifica se tem alguém logado (segurança extra)
+            if (Program.UsuarioLogado == null) return;
 
-                // Exemplo de controle de acesso:
-                if (CurrentUser.AcessLevel != "Admin")
-                {
-                    // Esconder menus que só admin pode ver
-                    // menuGerenciarUsuarios.Visible = false;
-                }
+            // Exemplo: Se você tiver uma label chamada 'lblUsuario' no topo
+            // lblUsuario.Text = $"Olá, {Program.UsuarioLogado.Name} ({Program.UsuarioLogado.AcessLevel})";
+
+            // Opcional: Desabilitar botões visualmente se não for Admin
+            // if (Program.UsuarioLogado.AcessLevel != "Administrador")
+            // {
+            //     btnUserSystem.Enabled = false; 
+            // }
+        }
+
+        // --- Eventos dos Botões do Menu ---
+
+        // Botão para abrir o Cadastro de Usuários (Apenas Admin)
+        // Dê um duplo clique no botão de usuários no Designer para gerar este método
+        private void btnUserSystem_Click(object sender, EventArgs e)
+        {
+            // 1. REGRA DE SEGURANÇA: Verifica se é Admin
+            // O texto deve ser idêntico ao que está no banco ("Administrador" ou "Admin")
+            if (Program.UsuarioLogado.AcessLevel != "Administrador" && Program.UsuarioLogado.AcessLevel != "Admin")
+            {
+                MessageBox.Show("Acesso Negado!\nApenas administradores podem acessar esta tela.",
+                                "Segurança", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            // 2. Abre a tela usando Injeção de Dependência
+            var userForm = ConfigureDI.serviceProvider.GetRequiredService<UserSystemForm>();
+            userForm.ShowDialog();
+        }
+
+        // Botão para abrir Clientes (Acesso liberado)
+        private void btnCliente_Click(object sender, EventArgs e)
+        {
+            var clientForm = ConfigureDI.serviceProvider.GetRequiredService<ClientForm>();
+            clientForm.ShowDialog();
+        }
+
+        // Botão para abrir Produtos
+        private void btnProduto_Click(object sender, EventArgs e)
+        {
+            var productForm = ConfigureDI.serviceProvider.GetRequiredService<ProductForm>();
+            productForm.ShowDialog();
+        }
+
+        // Botão para abrir Dispositivos
+        private void btnDispositivo_Click(object sender, EventArgs e)
+        {
+            var deviceForm = ConfigureDI.serviceProvider.GetRequiredService<DeviceForm>();
+            deviceForm.ShowDialog();
+        }
+
+        // Botão para Sair/Logoff
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Deseja realmente sair?", "Sair", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Application.Exit();
             }
         }
-
-        private void LoginLoad()
-        {
-            var login = ConfigureDI.serviceProvider!.GetService<Login>();
-            if (login != null && !login.IsDisposed)
-            {
-                if (login.ShowDialog() != DialogResult.OK)
-                {
-                    Environment.Exit(0);
-                }
-
-            }
-        }
-
     }
 }

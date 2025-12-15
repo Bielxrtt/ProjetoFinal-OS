@@ -1,21 +1,38 @@
-
+using Microsoft.Extensions.DependencyInjection;
 using Os.App.Infra;
+using Os.App.Others;
+using Os.Domain.Entities;
+using System;
+using System.Windows.Forms;
 
-
-namespace Os.App;
-
-internal static class Program
+namespace Os.App
 {
-    /// <summary>
-    ///  The main entry point for the application.
-    /// </summary>
-    [STAThread]
-    static void Main()
+    internal static class Program
     {
-        ConfigureDI.ConfigureServices();
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
-        ApplicationConfiguration.Initialize();
-        System.Windows.Forms.Application.Run(new MainForm());
+        // Sessão global do usuário
+        public static UserSystem UsuarioLogado { get; set; }
+
+        [STAThread]
+        static void Main()
+        {
+            ApplicationConfiguration.Initialize();
+
+            // 1. Configura os serviços (Banco, AutoMapper, Forms)
+            ConfigureDI.ConfigureServices();
+
+            // 2. Pega o formulário de Login já com as dependências injetadas
+            var loginForm = ConfigureDI.serviceProvider.GetRequiredService<Login>();
+
+            // 3. Exibe o Login. O MainForm só abre se o resultado for OK.
+            if (loginForm.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new MainForm());
+            }
+            else
+            {
+                // Se o usuário fechar o login sem entrar, o app morre aqui.
+                Application.Exit();
+            }
+        }
     }
 }

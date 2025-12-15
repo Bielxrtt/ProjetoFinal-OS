@@ -1,4 +1,4 @@
-﻿namespace Os.Application.ViewModels
+﻿namespace Os.App.ViewModel
 {
     public class ServiceOrderViewModel
     {
