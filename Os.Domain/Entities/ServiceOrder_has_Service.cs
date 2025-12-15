@@ -10,7 +10,7 @@ namespace Os.Domain.Entities
         public int ServiceId { get; set; }
         public Services Service { get; set; }
 
-        public string Service_TypeService { get; set; }
-        public string Service_Item_TypeItem { get; set; }
+        
+        public decimal Price { get; set; }
     }
 }

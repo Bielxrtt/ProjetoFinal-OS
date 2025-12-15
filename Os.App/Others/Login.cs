@@ -1,12 +1,11 @@
-﻿using Os.Domain.Base;
+﻿
+using Os.App;
+using Os.App.ViewModel;
+using Os.Domain.Base;
 using Os.Domain.Entities;
 using Os.Service.Validators;
 using ReaLTaiizor.Forms;
-using System;
-using System.Linq;
-using System.Windows.Forms;
-// Adicione este using para acessar a classe Program
-using Os.App;
+
 
 namespace Os.App.Others
 {
@@ -83,42 +82,43 @@ namespace Os.App.Others
             {
                 var users = _userService.Get<UserSystem>().ToList();
 
-                // Se não existe NENHUM usuário, cria o Admin padrão
                 if (!users.Any())
                 {
-                    // 1. Garante que existe um Status "Ativo" primeiro
+                    // 1. Garante Status
                     var statusList = _statusService.Get<Status>().ToList();
                     int idStatusAtivo = 1;
 
                     if (!statusList.Any())
                     {
-                        var novoStatus = new Status { Name = "Ativo", Description = "Usuário ativo no sistema" };
+                        var novoStatus = new Status { Name = "Ativo", Description = "Usuário ativo" };
+                        // Aqui usamos a própria entidade pois Status costuma ser simples, 
+                        // mas o ideal seria StatusViewModel se der erro também.
                         var statusSalvo = _statusService.Add<Status, Status, StatusValidator>(novoStatus);
-                        idStatusAtivo = statusSalvo.Id; // Pega o ID gerado
+                        idStatusAtivo = statusSalvo.Id;
                     }
                     else
                     {
                         idStatusAtivo = statusList.First().Id;
                     }
 
-                    // 2. Cria o Admin
-                    var admin = new UserSystem
+                    // 2. Cria o Admin usando a VIEW MODEL
+                    // Isso evita o erro de mapeamento "Missing type map configuration"
+                    var adminVM = new UserSystemViewModel
                     {
                         Name = "Administrador",
                         Login = "admin",
                         Password = "admin",
-                        AcessLevel = "Administrador", // Use "Administrador" ou "Admin" (mantenha o padrão do MainForm)
-                        IdStatus = idStatusAtivo,
+                        AcessLevel = "Administrador",
+                        IdStatus = idStatusAtivo
                     };
 
-                    _userService.Add<UserSystem, UserSystem, UserSystemValidator>(admin);
+                    // OBS: Mudei o primeiro tipo para UserSystemViewModel
+                    _userService.Add<UserSystemViewModel, UserSystem, UserSystemValidator>(adminVM);
                 }
             }
             catch (Exception ex)
             {
-                // Apenas loga ou ignora silenciosamente na tela de login para não assustar o usuário,
-                // a menos que seja crítico.
-                Console.WriteLine("Erro ao verificar admin padrão: " + ex.Message);
+                MessageBox.Show("Erro ao criar admin: " + ex.Message);
             }
         }
     }

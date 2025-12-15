@@ -70,6 +70,7 @@ namespace Os.App.Infra
             services.AddTransient<ProductForm>();
             services.AddTransient<ServiceForm>();
             services.AddTransient<StatusForm>();
+            services.AddTransient<Os.App.Register.ServiceForm>();
             #endregion
 
             #region AutoMapper Configuração Explícita
@@ -85,6 +86,8 @@ namespace Os.App.Infra
                 cfg.CreateMap<Device, DeviceViewModel>()
                    .ForMember(dest => dest.ClientName, opt => opt.MapFrom(src => src.Client.Name));
                 cfg.CreateMap<DeviceViewModel, Device>();
+
+                cfg.CreateMap<ServiceOrder, ServiceOrderViewModel>().ReverseMap();
             });
 
             // Cria o IMapper a partir da configuração

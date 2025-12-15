@@ -8,16 +8,31 @@ namespace Os.Repository.Mapping
     {
         public void Configure(EntityTypeBuilder<ServiceOrder_has_Service> builder)
         {
-            builder.ToTable("serviceorder_has_service");
-            builder.HasKey(x => x.Id);
+            builder.ToTable("ServiceOrder_has_Service");
 
-            builder.HasOne(x => x.ServiceOrder)
-                   .WithMany(so => so.Services) // Atualizaremos ServiceOrder no passo 3
-                   .HasForeignKey(x => x.ServiceOrderId);
+            // PK
+            builder.HasKey(prop => prop.Id);
 
-            builder.HasOne(x => x.Service)
-                   .WithMany()
-                   .HasForeignKey(x => x.ServiceId);
+            // FK -> ServiceOrder
+            builder.Property(prop => prop.ServiceOrderId)
+                .IsRequired();
+
+            builder.HasOne(prop => prop.ServiceOrder)
+                .WithMany(prop => prop.Services)
+                .HasForeignKey(prop => prop.ServiceOrderId);
+
+            // FK -> Service (Serviço)
+            builder.Property(prop => prop.ServiceId)
+                .IsRequired();
+
+            builder.HasOne(prop => prop.Service)
+                .WithMany()
+                .HasForeignKey(prop => prop.ServiceId);
+
+            // Campos Adicionais
+            builder.Property(prop => prop.Price)
+                .HasPrecision(10, 2) // Recomendado para valores monetários
+                .IsRequired();
         }
     }
 }

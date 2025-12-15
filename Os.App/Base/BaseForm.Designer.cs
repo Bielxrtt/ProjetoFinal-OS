@@ -239,8 +239,6 @@
 
         #endregion
         private Panel panel1;
-        private ReaLTaiizor.Controls.MaterialButton btnConfirm;
-        private ReaLTaiizor.Controls.MaterialButton btnCancel;
         protected ReaLTaiizor.Controls.MaterialTabControl tabControlRegister;
         private Panel panel2;
         private ReaLTaiizor.Controls.MaterialButton btnSave;
@@ -248,6 +246,8 @@
         private ReaLTaiizor.Controls.MaterialButton btnDelete;
         protected TabPage tabPageRegister;
         protected TabPage tabPage2;
-        private DataGridView dataGridView1;
+        protected DataGridView dataGridView1;
+        protected ReaLTaiizor.Controls.MaterialButton btnConfirm;
+        protected ReaLTaiizor.Controls.MaterialButton btnCancel;
     }
 }

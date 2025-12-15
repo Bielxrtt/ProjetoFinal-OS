@@ -8,17 +8,23 @@ namespace Os.Repository.Mapping
     {
         public void Configure(EntityTypeBuilder<Products_has_ServiceOrder> builder)
         {
-            builder.ToTable("products_has_serviceorder");
-            builder.HasKey(x => x.Id);
+            builder.ToTable("Products_has_ServiceOrder");
 
-            builder.HasOne(x => x.Product)
-                   .WithMany()
-                   .HasForeignKey(x => x.ProductId); 
+            builder.HasKey(prop => prop.Id);
 
+            // FK Produto
+            builder.Property(prop => prop.ProductId).IsRequired();
+            builder.HasOne(prop => prop.Product).WithMany().HasForeignKey(prop => prop.ProductId);
+
+            // FK OS
+            builder.Property(prop => prop.ServiceOrder_Id_Service_Order).IsRequired();
             builder.HasOne(prop => prop.ServiceOrder)
-                   .WithMany(so => so.Products)
-                   
-                   .HasForeignKey(x => x.ServiceOrder_Id_Service_Order);
+                .WithMany(prop => prop.Products)
+                .HasForeignKey(prop => prop.ServiceOrder_Id_Service_Order);
+
+            // Campos Extras
+            builder.Property(prop => prop.Price).HasPrecision(10, 2).IsRequired();
+            builder.Property(prop => prop.Quantity).IsRequired();
         }
     }
 }

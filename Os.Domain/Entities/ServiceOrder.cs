@@ -1,9 +1,9 @@
 ﻿using Os.Domain.Base;
+using System; 
 using System.Collections.Generic;
 
 namespace Os.Domain.Entities
 {
-
     public class ServiceOrder : BaseEntity<int>
     {
         public ServiceOrder()
@@ -12,40 +12,13 @@ namespace Os.Domain.Entities
             Products = new List<Products_has_ServiceOrder>();
         }
 
-        public ServiceOrder(
-            int id,
-            decimal price,
-            string note,
-            int idStatus,
-            Status status,
-            int userId,
-            UserSystem user,
-            int idClient,
-            Client client,
-            int idDevice,
-            Device device,
-            ICollection<ServiceOrder_has_Service> services,
-            ICollection<Products_has_ServiceOrder> products
-        ) : base(id)
-        {
-            Price = price;
-            Note = note;
-            IdStatus = idStatus;
-            Status = status;
-            UserId = userId;
-            User = user;
-            IdClient = idClient;
-            Client = client;
-            IdDevice = idDevice;
-            Device = device;
-            Services = services;
-            Products = products;
-        }
-
+        // Propriedades Simples
+        public DateTime StartDate { get; set; } 
+        public DateTime? ExitDate { get; set; }
         public decimal Price { get; set; }
         public string Note { get; set; }
 
-
+        // Chaves Estrangeiras e Navegação
         public int IdStatus { get; set; }
         public Status Status { get; set; }
 
@@ -58,12 +31,8 @@ namespace Os.Domain.Entities
         public int IdDevice { get; set; }
         public Device Device { get; set; }
 
-        // N:N
+        // Listas (Relacionamentos)
         public ICollection<ServiceOrder_has_Service> Services { get; set; }
         public ICollection<Products_has_ServiceOrder> Products { get; set; }
     }
 }
-
-
-   
-   
