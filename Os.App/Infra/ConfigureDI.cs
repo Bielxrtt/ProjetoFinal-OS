@@ -37,7 +37,7 @@ namespace Os.App.Infra
                 if (File.Exists(path)) dbConfigFile = path;
             }
 
-            var strCon = File.Exists(dbConfigFile) ? File.ReadAllText(dbConfigFile) : "Server=localhost;Database=os_db;Uid=root;Pwd=;";
+            var strCon = File.Exists(dbConfigFile) ? File.ReadAllText(dbConfigFile) : "Server=localhost;Database=Os;Uid=root;Pwd=;";
 
             services = new ServiceCollection();
 

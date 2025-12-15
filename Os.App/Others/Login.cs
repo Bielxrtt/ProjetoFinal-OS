@@ -84,15 +84,14 @@ namespace Os.App.Others
 
                 if (!users.Any())
                 {
-                    // 1. Garante Status
+                    
                     var statusList = _statusService.Get<Status>().ToList();
                     int idStatusAtivo = 1;
 
                     if (!statusList.Any())
                     {
                         var novoStatus = new Status { Name = "Ativo", Description = "Usuário ativo" };
-                        // Aqui usamos a própria entidade pois Status costuma ser simples, 
-                        // mas o ideal seria StatusViewModel se der erro também.
+                        
                         var statusSalvo = _statusService.Add<Status, Status, StatusValidator>(novoStatus);
                         idStatusAtivo = statusSalvo.Id;
                     }
@@ -101,8 +100,7 @@ namespace Os.App.Others
                         idStatusAtivo = statusList.First().Id;
                     }
 
-                    // 2. Cria o Admin usando a VIEW MODEL
-                    // Isso evita o erro de mapeamento "Missing type map configuration"
+                   
                     var adminVM = new UserSystemViewModel
                     {
                         Name = "Administrador",
@@ -112,7 +110,7 @@ namespace Os.App.Others
                         IdStatus = idStatusAtivo
                     };
 
-                    // OBS: Mudei o primeiro tipo para UserSystemViewModel
+                    
                     _userService.Add<UserSystemViewModel, UserSystem, UserSystemValidator>(adminVM);
                 }
             }

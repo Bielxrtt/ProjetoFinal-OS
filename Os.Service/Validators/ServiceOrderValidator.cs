@@ -8,9 +8,6 @@ namespace Os.Service.Validators
         public ServiceOrderValidator()
         {
 
-            RuleFor(c => c.StartDate)
-                .NotEmpty().
-                WithMessage("A Data de Início é obrigatória.");
 
 
             RuleFor(c => c.Price)
