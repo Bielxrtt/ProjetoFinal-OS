@@ -11,8 +11,8 @@ using Os.Repository.Context;
 namespace Os.Repository.Migrations
 {
     [DbContext(typeof(OsContext))]
-    [Migration("20251215150656_Inicial")]
-    partial class Inicial
+    [Migration("20251216000910_AjusteProduto")]
+    partial class AjusteProduto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,6 +106,15 @@ namespace Os.Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<float>("Quantity")
                         .HasColumnType("float");
@@ -225,24 +234,26 @@ namespace Os.Repository.Migrations
                     b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
                     b.Property<int?>("DeviceId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Finish_Date")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime>("Start_Date")
-                        .HasColumnType("datetime");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
                     b.Property<string>("TypeService")
                         .IsRequired()
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserSystemId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -253,7 +264,7 @@ namespace Os.Repository.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserSystemId");
 
                     b.ToTable("Service", (string)null);
                 });
@@ -435,13 +446,9 @@ namespace Os.Repository.Migrations
                         .WithMany("ServiceOrders")
                         .HasForeignKey("StatusId");
 
-                    b.HasOne("Os.Domain.Entities.UserSystem", "User")
+                    b.HasOne("Os.Domain.Entities.UserSystem", null)
                         .WithMany("Services")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .HasForeignKey("UserSystemId");
                 });
 
             modelBuilder.Entity("Os.Domain.Entities.UserSystem", b =>

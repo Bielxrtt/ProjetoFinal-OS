@@ -1,41 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ReaLTaiizor.Forms;
-using ReaLTaiizor.Controls;
-
 
 namespace Os.App.Base
 {
-
-
     public partial class BaseForm : LostForm
     {
         public BaseForm()
         {
             InitializeComponent();
+            ConfigurarBotoesBase();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void ConfigurarBotoesBase()
         {
             
+            if (btnConsult != null)
+            {
+                btnConsult.Click += (s, e) =>
+                {
+                    CarregarGrid(); 
+                    tabControlRegister.SelectedIndex = 1; 
+                };
+            }
+
+            
+            tabControlRegister.SelectedIndexChanged += (s, e) =>
+            {
+                if (tabControlRegister.SelectedIndex == 1)
+                {
+                    CarregarGrid();
+                }
+            };
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        
+        protected virtual void CarregarGrid()
         {
            
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-           
-        }
+        
+        protected virtual void btnDelete_Click(object sender, EventArgs e) { }
+        protected virtual void btnEdit_Click(object sender, EventArgs e) { }
+        protected virtual void btnSave_Click(object sender, EventArgs e) { }
     }
-
 }

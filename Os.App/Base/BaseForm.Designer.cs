@@ -2,15 +2,8 @@
 {
     partial class BaseForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,16 +15,13 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             tabControlRegister = new ReaLTaiizor.Controls.MaterialTabControl();
             tabPageRegister = new TabPage();
             panel1 = new Panel();
+            btnConsult = new ReaLTaiizor.Controls.MaterialButton();
             btnConfirm = new ReaLTaiizor.Controls.MaterialButton();
             btnCancel = new ReaLTaiizor.Controls.MaterialButton();
             tabPage2 = new TabPage();
@@ -75,12 +65,33 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnConsult);
             panel1.Controls.Add(btnConfirm);
             panel1.Controls.Add(btnCancel);
             panel1.Location = new Point(3, 322);
             panel1.Name = "panel1";
             panel1.Size = new Size(843, 73);
             panel1.TabIndex = 2;
+            // 
+            // btnConsult
+            // 
+            btnConsult.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnConsult.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnConsult.Depth = 0;
+            btnConsult.HighEmphasis = true;
+            btnConsult.Icon = null;
+            btnConsult.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnConsult.Location = new Point(530, 16);
+            btnConsult.Margin = new Padding(4, 6, 4, 6);
+            btnConsult.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnConsult.Name = "btnConsult";
+            btnConsult.NoAccentTextColor = Color.Empty;
+            btnConsult.Size = new Size(87, 36);
+            btnConsult.TabIndex = 2;
+            btnConsult.Text = "Consult";
+            btnConsult.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            btnConsult.UseAccentColor = false;
+            btnConsult.UseVisualStyleBackColor = true;
             // 
             // btnConfirm
             // 
@@ -172,7 +183,6 @@
             btnSave.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             btnSave.UseAccentColor = false;
             btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
             // 
             // btnEdit
             // 
@@ -193,7 +203,6 @@
             btnEdit.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             btnEdit.UseAccentColor = false;
             btnEdit.UseVisualStyleBackColor = true;
-            btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
@@ -214,7 +223,6 @@
             btnDelete.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             btnDelete.UseAccentColor = false;
             btnDelete.UseVisualStyleBackColor = true;
-            btnDelete.Click += btnDelete_Click;
             // 
             // BaseForm
             // 
@@ -241,13 +249,14 @@
         private Panel panel1;
         protected ReaLTaiizor.Controls.MaterialTabControl tabControlRegister;
         private Panel panel2;
-        private ReaLTaiizor.Controls.MaterialButton btnSave;
-        private ReaLTaiizor.Controls.MaterialButton btnEdit;
-        private ReaLTaiizor.Controls.MaterialButton btnDelete;
         protected TabPage tabPageRegister;
         protected TabPage tabPage2;
         protected DataGridView dataGridView1;
         protected ReaLTaiizor.Controls.MaterialButton btnConfirm;
         protected ReaLTaiizor.Controls.MaterialButton btnCancel;
+        protected ReaLTaiizor.Controls.MaterialButton btnConsult; // Variável do Botão
+        protected ReaLTaiizor.Controls.MaterialButton btnSave;
+        protected ReaLTaiizor.Controls.MaterialButton btnEdit;
+        protected ReaLTaiizor.Controls.MaterialButton btnDelete;
     }
 }

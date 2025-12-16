@@ -14,24 +14,16 @@ namespace Os.Repository.Mapping
 
             builder.Property(s => s.TypeService)
                 .IsRequired()
-                .HasMaxLength(45);
+                .HasMaxLength(100); 
 
-            builder.Property(s => s.UserId)
+            builder.Property(s => s.Price)
+                .HasColumnType("decimal(18,2)") 
                 .IsRequired();
 
-            builder.Property(s => s.Start_Date)
-                .HasColumnType("datetime")
-                .IsRequired();
+            builder.Property(s => s.Description)
+                .HasMaxLength(500); 
 
-            builder.Property(s => s.Finish_Date)
-                .HasColumnType("datetime")
-                .IsRequired();
-
-            // RELACIONAMENTO COM USER
-            builder.HasOne(s => s.User)
-                .WithMany(u => u.Services)
-                .HasForeignKey(s => s.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+            
         }
     }
 }

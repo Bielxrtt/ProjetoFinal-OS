@@ -38,9 +38,19 @@ namespace Os.App.Register
             _currentOS = new ServiceOrderViewModel();
 
             CarregarCombos();
-            CarregarGridPrincipal(); 
+            CarregarGridPrincipal();
             ConfigurarEventos();
         }
+
+        
+        public void DefinirAba(int index)
+        {
+            if (tabControlRegister.TabCount > index)
+            {
+                tabControlRegister.SelectedIndex = index;
+            }
+        }
+        
 
         private void ConfigurarEventos()
         {
@@ -51,10 +61,11 @@ namespace Os.App.Register
             btnAddProduct.Click += BtnAddProduct_Click;
             cboClient.SelectedIndexChanged += CboClient_SelectedIndexChanged;
 
-            // Evento para recarregar a lista se o usuário clicar na aba "List" manualmente
+
+            
             tabControlRegister.SelectedIndexChanged += (s, e) =>
             {
-                if (tabControlRegister.SelectedIndex == 1) // Aba 1 é a Lista
+                if (tabControlRegister.SelectedIndex == 1) 
                 {
                     CarregarGridPrincipal();
                 }
@@ -65,17 +76,38 @@ namespace Os.App.Register
         {
             try
             {
-                // Busca as OSs incluindo os relacionamentos para mostrar os nomes
-                var includes = new List<string> { "Client", "Device", "Status", "User" };
+                // 1. Carrega todas as tabelas necessárias
+                var includes = new List<string>
+        {
+            "Client",            // Traz o Cliente (para exibir o nome dele)
+            "Device",            // Traz o Aparelho
+            "Status",
+            "User",
+            "Services.Service",  // Traz os Serviços e seus nomes
+            "Products.Product"   // Traz os Produtos e seus nomes
+        };
+
                 var listaOS = _osRepository.Select(includes);
 
-                // Mapeamento rápido para mostrar na Grid (Anonymous Object ou ViewModel)
+                
                 var gridData = listaOS.Select(x => new
                 {
                     Id = x.Id,
-                    Data = x.StartDate,
-                    Cliente = x.Client?.Name,
-                    Aparelho = x.Device?.Model,
+                    Data = x.Date,
+                    // O sinal ?. evita erro se o Cliente for nulo
+                    Cliente = x.Client != null ? x.Client.Name : "Sem Cliente",
+                    Aparelho = x.Device != null ? x.Device.Model : "Sem Aparelho",
+
+                    // Exibe os serviços separados por vírgula
+                    Servicos = x.Services != null
+                        ? string.Join(", ", x.Services.Select(s => s.Service?.TypeService))
+                        : "",
+
+                    // Exibe os produtos separados por vírgula (Agora vai funcionar pois Product tem Name)
+                    Produtos = x.Products != null
+                        ? string.Join(", ", x.Products.Select(p => p.Product?.Name))
+                        : "",
+
                     Status = x.Status?.Name,
                     Total = x.Price.ToString("C2")
                 }).OrderByDescending(x => x.Id).ToList();
@@ -93,29 +125,33 @@ namespace Os.App.Register
         {
             try
             {
-                cboClient.DataSource = _clientService.Get<ClientViewModel>().ToList();
+                
+                var services = _servicesService.Get<Services>().ToList();
+                cboServices.DataSource = services;
+                cboServices.DisplayMember = "TypeService"; 
+                cboServices.ValueMember = "Id";
+                cboServices.SelectedIndex = -1;
+
+               
+                var products = _productService.Get<Product>().ToList();
+                cboProducts.DataSource = products;
+                cboProducts.DisplayMember = "Name";        
+                cboProducts.ValueMember = "Id";
+                cboProducts.SelectedIndex = -1;
+
+                var clients = _clientService.Get<Client>().ToList();
+                cboClient.DataSource = clients;
                 cboClient.DisplayMember = "Name";
                 cboClient.ValueMember = "Id_Client";
                 cboClient.SelectedIndex = -1;
 
-                cboStatus.DataSource = _statusService.Get<StatusViewModel>().ToList();
-                cboStatus.DisplayMember = "Name";
-                cboStatus.ValueMember = "Id";
-                if (cboStatus.Items.Count > 0) cboStatus.SelectedIndex = 0;
 
-                cboServices.DataSource = _servicesService.Get<ServicesViewModel>().ToList();
-                cboServices.DisplayMember = "TypeService";
-                cboServices.ValueMember = "Id";
-                cboServices.SelectedIndex = -1;
 
-                cboProducts.DataSource = _productService.Get<ProductViewModel>().ToList();
-                cboProducts.DisplayMember = "Name";
-                cboProducts.ValueMember = "Id";
-                cboProducts.SelectedIndex = -1;
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar dados: " + ex.Message);
+                MessageBox.Show($"Erro ao carregar listas: {ex.Message}");
             }
         }
 
@@ -203,7 +239,7 @@ namespace Os.App.Register
                     IdDevice = (int)cboDevice.SelectedValue,
                     IdStatus = (int?)cboStatus.SelectedValue ?? 1,
                     UserId = Program.UsuarioLogado?.Id ?? 1,
-                    StartDate = DateTime.Now,
+                    Date = DateTime.Now,
                     Note = txtNote.Text,
                     Price = _currentOS.TotalPrice,
 
@@ -225,10 +261,9 @@ namespace Os.App.Register
 
                 MessageBox.Show($"OS {os.Id} Salva com Sucesso!");
 
-                // --- FLUXO DE CONSULTA ---
-                LimparCampos();          // 1. Limpa o formulário para uma nova
-                CarregarGridPrincipal(); // 2. Atualiza a lista com a nova OS
-                tabControlRegister.SelectedIndex = 1; // 3. Vai para a aba de Lista automaticamente
+                LimparCampos();
+                CarregarGridPrincipal();
+                tabControlRegister.SelectedIndex = 1; 
             }
             catch (Exception ex)
             {
@@ -239,19 +274,16 @@ namespace Os.App.Register
 
         private void LimparCampos()
         {
-            // Reseta a ViewModel da OS atual
             _currentOS = new ServiceOrderViewModel();
 
-            // Limpa controles visuais
             cboClient.SelectedIndex = -1;
-            cboDevice.DataSource = null; // Limpa pois depende do cliente
+            cboDevice.DataSource = null;
             if (cboStatus.Items.Count > 0) cboStatus.SelectedIndex = 0;
             cboServices.SelectedIndex = -1;
             cboProducts.SelectedIndex = -1;
             txtNote.Text = "";
             txtProductQty.Text = "1";
 
-            // Limpa grids visuais de itens
             AtualizarGridItens();
         }
     }

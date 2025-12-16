@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging.Abstractions;
 using Os.App.Others;
 using Os.App.Register;
 using Os.App.ViewModel;
@@ -23,27 +22,21 @@ namespace Os.App.Infra
 
         public static void ConfigureServices()
         {
-            // 1. Configuração do Banco de Dados
             string dbConfigFile = @"C:\Os\DbConfig.txt";
-
-            if (!File.Exists(dbConfigFile))
-            {
-                dbConfigFile = "Config/DBConfig.txt";
-            }
-
+            if (!File.Exists(dbConfigFile)) dbConfigFile = "Config/DBConfig.txt";
             if (!File.Exists(dbConfigFile))
             {
                 var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "DBConfig.txt");
                 if (File.Exists(path)) dbConfigFile = path;
             }
 
-            var strCon = File.Exists(dbConfigFile) ? File.ReadAllText(dbConfigFile) : "Server=localhost;Database=Os;Uid=root;Pwd=;";
+            var strCon = File.Exists(dbConfigFile) ? File.ReadAllText(dbConfigFile) : "Server=localhost;Database=Os;Uid=root;Pwd=root;";
 
             services = new ServiceCollection();
 
             services.AddDbContext<OsContext>(options =>
             {
-                options.LogTo(Console.WriteLine);
+                
                 options.UseMySQL(strCon);
             });
 
@@ -70,30 +63,38 @@ namespace Os.App.Infra
             services.AddTransient<ProductForm>();
             services.AddTransient<ServiceForm>();
             services.AddTransient<StatusForm>();
-            services.AddTransient<Os.App.Register.ServiceForm>();
+            services.AddTransient<ServiceOrderForm>();
             #endregion
 
-            #region AutoMapper Configuração Explícita
-            // Definindo a configuração separadamente para evitar erro de construtor
+            #region AutoMapper (CORREÇÃO DO CRASH AQUI)
             var mapperConfig = new MapperConfiguration((cfg) =>
             {
                 cfg.CreateMap<UserSystem, UserSystemViewModel>().ReverseMap();
-                cfg.CreateMap<Client, ClientViewModel>().ReverseMap();
-                cfg.CreateMap<Product, ProductViewModel>().ReverseMap();
-                cfg.CreateMap<ServiceEntity, ServicesViewModel>().ReverseMap();
+                cfg.CreateMap<Device, DeviceViewModel>()
+                .ForMember(dest => dest.ClientName,
+                opt => opt.MapFrom(src => src.Client != null ? src.Client.Name : "Desconhecido"));
+
+                cfg.CreateMap<DeviceViewModel, Device>(); ;
                 cfg.CreateMap<Status, StatusViewModel>().ReverseMap();
 
+                
                 cfg.CreateMap<Device, DeviceViewModel>()
-                   .ForMember(dest => dest.ClientName, opt => opt.MapFrom(src => src.Client.Name));
+                   .ForMember(dest => dest.ClientName, opt => opt.MapFrom(src => src.Client != null ? src.Client.Name : "N/A"));
                 cfg.CreateMap<DeviceViewModel, Device>();
 
+                
                 cfg.CreateMap<ServiceOrder, ServiceOrderViewModel>().ReverseMap();
+                cfg.CreateMap<ServiceOrder_has_Service, ServiceOrderItemVM>().ReverseMap();
+                cfg.CreateMap<Products_has_ServiceOrder, ProductOrderItemVM>().ReverseMap();
+
+                cfg.CreateMap<Client, ClientViewModel>().ReverseMap();
+                cfg.CreateMap<Services, ServicesViewModel>().ReverseMap();
+                cfg.CreateMap<Product, ProductViewModel>().ReverseMap();
+
+
             });
 
-            // Cria o IMapper a partir da configuração
             IMapper mapper = mapperConfig.CreateMapper();
-
-            // Registra o IMapper no sistema
             services.AddSingleton(mapper);
             #endregion
 

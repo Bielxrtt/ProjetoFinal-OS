@@ -6,9 +6,9 @@ namespace Os.App.ViewModel
 {
     public class DeviceViewModel
     {
-        public int IdDevice { get; set; }
+        public int Id{ get; set; }
         public int Id_Client { get; set; }
-        public string ClientName { get; set; } // Para mostrar no Grid
+        public string ClientName { get; set; }
 
         public TypeBrand TypeBrand { get; set; }
         public string Model { get; set; }

@@ -29,34 +29,25 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            menuStrip1 = new MenuStrip();
             registerToolStripMenuItem = new ToolStripMenuItem();
             clientToolStripMenuItem = new ToolStripMenuItem();
             userEmployeeToolStripMenuItem = new ToolStripMenuItem();
             productToolStripMenuItem = new ToolStripMenuItem();
             serviceToolStripMenuItem = new ToolStripMenuItem();
             statusToolStripMenuItem = new ToolStripMenuItem();
+            deviceToolStripMenuItem = new ToolStripMenuItem();
             operationsToolStripMenuItem = new ToolStripMenuItem();
             newOsToolStripMenuItem = new ToolStripMenuItem();
             manageOsToolStripMenuItem = new ToolStripMenuItem();
             reportsToolStripMenuItem = new ToolStripMenuItem();
             systemToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1 = new MenuStrip();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // menuStrip1
-            // 
-            menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { registerToolStripMenuItem, operationsToolStripMenuItem, reportsToolStripMenuItem, systemToolStripMenuItem });
-            menuStrip1.Location = new Point(2, 36);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(796, 28);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
-            // 
             // registerToolStripMenuItem
             // 
-            registerToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientToolStripMenuItem, userEmployeeToolStripMenuItem, productToolStripMenuItem, serviceToolStripMenuItem, statusToolStripMenuItem });
+            registerToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientToolStripMenuItem, userEmployeeToolStripMenuItem, productToolStripMenuItem, serviceToolStripMenuItem, statusToolStripMenuItem, deviceToolStripMenuItem });
             registerToolStripMenuItem.Name = "registerToolStripMenuItem";
             registerToolStripMenuItem.Size = new Size(77, 24);
             registerToolStripMenuItem.Text = "Register";
@@ -78,6 +69,7 @@
             productToolStripMenuItem.Name = "productToolStripMenuItem";
             productToolStripMenuItem.Size = new Size(224, 26);
             productToolStripMenuItem.Text = "Product";
+            productToolStripMenuItem.Click += btnProduto_Click;
             // 
             // serviceToolStripMenuItem
             // 
@@ -90,6 +82,12 @@
             statusToolStripMenuItem.Name = "statusToolStripMenuItem";
             statusToolStripMenuItem.Size = new Size(224, 26);
             statusToolStripMenuItem.Text = "Status";
+            // 
+            // deviceToolStripMenuItem
+            // 
+            deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
+            deviceToolStripMenuItem.Size = new Size(224, 26);
+            deviceToolStripMenuItem.Text = "Device";
             // 
             // operationsToolStripMenuItem
             // 
@@ -122,6 +120,16 @@
             systemToolStripMenuItem.Size = new Size(70, 24);
             systemToolStripMenuItem.Text = "System";
             // 
+            // menuStrip1
+            // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { registerToolStripMenuItem, operationsToolStripMenuItem, reportsToolStripMenuItem, systemToolStripMenuItem });
+            menuStrip1.Location = new Point(2, 36);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(796, 28);
+            menuStrip1.TabIndex = 0;
+            menuStrip1.Text = "menuStrip1";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
@@ -143,7 +151,6 @@
 
         #endregion
 
-        private MenuStrip menuStrip1;
         private ToolStripMenuItem registerToolStripMenuItem;
         private ToolStripMenuItem clientToolStripMenuItem;
         private ToolStripMenuItem userEmployeeToolStripMenuItem;
@@ -155,5 +162,7 @@
         private ToolStripMenuItem manageOsToolStripMenuItem;
         private ToolStripMenuItem reportsToolStripMenuItem;
         private ToolStripMenuItem systemToolStripMenuItem;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem deviceToolStripMenuItem;
     }
 }

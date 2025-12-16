@@ -14,21 +14,19 @@ namespace Os.Repository.Mapping
 
             builder.Property(prop => prop.Price).HasPrecision(10, 2).IsRequired();
             builder.Property(prop => prop.Note).HasMaxLength(500);
-            builder.Property(prop => prop.StartDate).IsRequired(); 
-            builder.Property(prop => prop.ExitDate);
+            builder.Property(prop => prop.Date).IsRequired(); 
+            
 
-            // FKs Simples
+            
             builder.HasOne(prop => prop.Status).WithMany().HasForeignKey(prop => prop.IdStatus);
             builder.HasOne(prop => prop.User).WithMany().HasForeignKey(prop => prop.UserId);
             builder.HasOne(prop => prop.Client).WithMany().HasForeignKey(prop => prop.IdClient);
             builder.HasOne(prop => prop.Device).WithMany().HasForeignKey(prop => prop.IdDevice);
 
-            // --- CORREÇÃO AQUI ---
-            // A lista 'Services' dentro de ServiceOrder é uma lista de 'ServiceOrder_has_Service'
-            // A chave estrangeira nessa tabela filha que aponta para o Pai (ServiceOrder) é 'ServiceOrderId'
+           
             builder.HasMany(prop => prop.Services)
                 .WithOne(prop => prop.ServiceOrder)
-                .HasForeignKey(prop => prop.ServiceOrderId); // <--- ESTAVA ServiceId, O CORRETO É ServiceOrderId
+                .HasForeignKey(prop => prop.ServiceOrderId); 
 
             builder.HasMany(prop => prop.Products)
                 .WithOne(prop => prop.ServiceOrder)

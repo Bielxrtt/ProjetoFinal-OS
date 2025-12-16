@@ -17,15 +17,14 @@ namespace Os.App.ViewModel
         public int IdStatus { get; set; }
         public string StatusName { get; set; }
 
-        public DateTime StartDate { get; set; }
-        public DateTime? ExitDate { get; set; }
+        public DateTime Date { get; set; }
+        
         public string Note { get; set; }
         public decimal TotalPrice { get; set; }
 
-        public int IdUser { get; set; } // Técnico responsável
+        public int IdUser { get; set; } 
 
-        // Listas para a Grid (Itens da OS)
-        // Usaremos classes auxiliares simples aqui dentro mesmo
+        
         public List<ServiceOrderItemVM> Services { get; set; } = new List<ServiceOrderItemVM>();
         public List<ProductOrderItemVM> Products { get; set; } = new List<ProductOrderItemVM>();
     }

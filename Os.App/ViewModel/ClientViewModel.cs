@@ -15,7 +15,7 @@ namespace Os.App.ViewModel
         public string Email { get; set; }
         public string Adress { get; set; }
         public DateTime Register_Date { get; set; }
-        public int IdDevice { get; set; }
+        public int? IdDevice { get; set; }
         public Device Device { get; set; }
 
     }

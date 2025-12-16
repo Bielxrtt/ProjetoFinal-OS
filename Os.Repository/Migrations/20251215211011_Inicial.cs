@@ -127,13 +127,13 @@ namespace Os.Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    TypeService = table.Column<string>(type: "varchar(45)", maxLength: 45, nullable: false),
-                    Start_Date = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Finish_Date = table.Column<DateTime>(type: "datetime", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TypeService = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: true),
                     DeviceId = table.Column<int>(type: "int", nullable: true),
-                    StatusId = table.Column<int>(type: "int", nullable: true)
+                    StatusId = table.Column<int>(type: "int", nullable: true),
+                    UserSystemId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -154,11 +154,10 @@ namespace Os.Repository.Migrations
                         principalTable: "Status",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Service_UserSystem_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Service_UserSystem_UserSystemId",
+                        column: x => x.UserSystemId,
                         principalTable: "UserSystem",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -305,9 +304,9 @@ namespace Os.Repository.Migrations
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Service_UserId",
+                name: "IX_Service_UserSystemId",
                 table: "Service",
-                column: "UserId");
+                column: "UserSystemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ServiceOrder_IdClient",

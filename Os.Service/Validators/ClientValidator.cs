@@ -12,7 +12,7 @@ namespace Os.Service.Validators
             RuleFor(c => c.Phone).NotEmpty().WithMessage("Telefone do cliente é orbigatório");
             RuleFor(c => c.Email).EmailAddress().WithMessage("E-mail é obrigatório");
             RuleFor(c => c.Adress).NotEmpty().WithMessage("Endereço residencial obrigatório");
-            RuleFor(c => c.Register_Date).NotEmpty().WithMessage("Data de registro é obrigatório");
+           // RuleFor(c => c.Register_Date).NotEmpty().WithMessage("Data de registro é obrigatório");
 
         }
 

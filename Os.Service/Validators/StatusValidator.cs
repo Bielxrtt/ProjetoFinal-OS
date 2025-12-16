@@ -15,15 +15,9 @@ namespace Os.Service.Validators
                 .NotEmpty().WithMessage("A descrição é obrigatória.")
                 .MaximumLength(45).WithMessage("A descrição deve ter no máximo 45 caracteres.");
 
-            RuleFor(x => x.StartDate)
-                .NotEmpty().WithMessage("A data de início é obrigatória.");
+           
 
-            RuleFor(x => x.FinishDate)
-                .NotEmpty().WithMessage("A data de término é obrigatória.");
-
-            RuleFor(x => x)
-                .Must(x => x.FinishDate >= x.StartDate)
-                .WithMessage("A data de término deve ser maior ou igual à data de início.");
+            
         }
     }
 }

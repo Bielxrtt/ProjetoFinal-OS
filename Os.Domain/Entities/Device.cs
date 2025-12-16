@@ -21,7 +21,7 @@ namespace Os.Domain.Entities
             IMEI = imei;
         }
 
-        public int IdDevice { get; set; }
+        //public int IdDevice { get; set; }
         public int Id_Client { get; set; }
 
         public TypeBrand TypeBrand { get; set; }
