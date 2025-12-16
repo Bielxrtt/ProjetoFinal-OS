@@ -7,7 +7,7 @@ namespace Os.App.ViewModel
     {
         public int Id { get; set; }
 
-        // Cabeçalho da OS
+        
         public int IdClient { get; set; }
         public string ClientName { get; set; }
 

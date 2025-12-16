@@ -32,7 +32,29 @@ namespace Os.Repository.Repository
 
         public void Update(TEntity obj)
         {
-            _mysSqlContext.SaveChanges();
+            _mysSqlContext.ChangeTracker.Clear();
+
+            
+            var existingObj = _mysSqlContext.Set<TEntity>().Find(obj.Id);
+
+            if (existingObj != null)
+            {
+                
+                var entry = _mysSqlContext.Entry(existingObj);
+
+                
+                entry.CurrentValues.SetValues(obj);
+
+               
+                entry.Property("Id").IsModified = false;
+
+                
+                _mysSqlContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Erro: Registro não encontrado no banco de dados para atualização.");
+            }
         }
 
         public void Delete(object id)

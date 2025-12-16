@@ -157,6 +157,7 @@
             HeaderColor = Color.Gray;
             Image = (Image)resources.GetObject("$this.Image");
             Name = "Login";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Os Login";
             ResumeLayout(false);
             PerformLayout();

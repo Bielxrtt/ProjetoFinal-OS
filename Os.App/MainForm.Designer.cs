@@ -55,38 +55,38 @@
             // clientToolStripMenuItem
             // 
             clientToolStripMenuItem.Name = "clientToolStripMenuItem";
-            clientToolStripMenuItem.Size = new Size(224, 26);
+            clientToolStripMenuItem.Size = new Size(193, 26);
             clientToolStripMenuItem.Text = "Client";
             // 
             // userEmployeeToolStripMenuItem
             // 
             userEmployeeToolStripMenuItem.Name = "userEmployeeToolStripMenuItem";
-            userEmployeeToolStripMenuItem.Size = new Size(224, 26);
+            userEmployeeToolStripMenuItem.Size = new Size(193, 26);
             userEmployeeToolStripMenuItem.Text = "User/Employee";
             // 
             // productToolStripMenuItem
             // 
             productToolStripMenuItem.Name = "productToolStripMenuItem";
-            productToolStripMenuItem.Size = new Size(224, 26);
+            productToolStripMenuItem.Size = new Size(193, 26);
             productToolStripMenuItem.Text = "Product";
             productToolStripMenuItem.Click += btnProduto_Click;
             // 
             // serviceToolStripMenuItem
             // 
             serviceToolStripMenuItem.Name = "serviceToolStripMenuItem";
-            serviceToolStripMenuItem.Size = new Size(224, 26);
+            serviceToolStripMenuItem.Size = new Size(193, 26);
             serviceToolStripMenuItem.Text = "Service";
             // 
             // statusToolStripMenuItem
             // 
             statusToolStripMenuItem.Name = "statusToolStripMenuItem";
-            statusToolStripMenuItem.Size = new Size(224, 26);
+            statusToolStripMenuItem.Size = new Size(193, 26);
             statusToolStripMenuItem.Text = "Status";
             // 
             // deviceToolStripMenuItem
             // 
             deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
-            deviceToolStripMenuItem.Size = new Size(224, 26);
+            deviceToolStripMenuItem.Size = new Size(193, 26);
             deviceToolStripMenuItem.Text = "Device";
             // 
             // operationsToolStripMenuItem

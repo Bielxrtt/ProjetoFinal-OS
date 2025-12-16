@@ -12,17 +12,17 @@ namespace Os.Repository.Mapping
 
             builder.HasKey(prop => prop.Id);
 
-            // FK Produto
+            
             builder.Property(prop => prop.ProductId).IsRequired();
             builder.HasOne(prop => prop.Product).WithMany().HasForeignKey(prop => prop.ProductId);
 
-            // FK OS
+            
             builder.Property(prop => prop.ServiceOrder_Id_Service_Order).IsRequired();
             builder.HasOne(prop => prop.ServiceOrder)
                 .WithMany(prop => prop.Products)
                 .HasForeignKey(prop => prop.ServiceOrder_Id_Service_Order);
 
-            // Campos Extras
+            
             builder.Property(prop => prop.Price).HasPrecision(10, 2).IsRequired();
             builder.Property(prop => prop.Quantity).IsRequired();
         }

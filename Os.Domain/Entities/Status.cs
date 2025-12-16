@@ -27,7 +27,6 @@ namespace Os.Domain.Entities
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
 
-        // Relacionamentos
         public ICollection<Services> ServiceOrders { get; set; }
         public ICollection<UserSystem> Users { get; set; }
     }

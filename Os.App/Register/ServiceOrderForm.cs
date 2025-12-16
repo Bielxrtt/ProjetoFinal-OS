@@ -165,7 +165,7 @@ namespace Os.App.Register
 
                 cboDevice.DataSource = userDevices;
                 cboDevice.DisplayMember = "Model";
-                cboDevice.ValueMember = "IdDevice";
+                cboDevice.ValueMember = "IdDevice"; 
                 cboDevice.SelectedIndex = -1;
             }
         }

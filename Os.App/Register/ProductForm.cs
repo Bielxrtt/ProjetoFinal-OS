@@ -38,21 +38,21 @@ namespace Os.App.Register
             {
                 try
                 {
-                    // 1. Validação do Nome
-                    if (string.IsNullOrWhiteSpace(txtNameProduct.Text)) // Seu campo se chama txtNameProduct
+                    
+                    if (string.IsNullOrWhiteSpace(txtNameProduct.Text)) 
                     {
                         MessageBox.Show("Nome do produto é obrigatório.");
                         return;
                     }
 
-                    // 2. Validação do Preço
+
                     if (!decimal.TryParse(txtPrice.Text, out decimal price))
                     {
                         MessageBox.Show("Preço inválido.");
                         return;
                     }
 
-                    // 3. Validação da Quantidade
+                    
                     if (!float.TryParse(txtQuantity.Text, out float quantity))
                     {
                         quantity = 0;
@@ -61,8 +61,8 @@ namespace Os.App.Register
                     // 4. Criação do Objeto (ViewModel) para salvar
                     var productVM = new ProductViewModel
                     {
-                        Id = _idCurrent, // _idCurrent controla se é edição ou novo
-                        Name = txtNameProduct.Text, // Pega o texto da caixinha
+                        Id = _idCurrent, 
+                        Name = txtNameProduct.Text, 
                         Price = price,
                         Quantity = quantity
                     };
@@ -93,7 +93,8 @@ namespace Os.App.Register
         {
             try
             {
-                var list = _productService.Get<ProductViewModel>();
+                var list = _productService.Get<ProductViewModel>().ToList();
+
                 dataGridView1.DataSource = null;
                 dataGridView1.DataSource = list;
             }

@@ -14,12 +14,14 @@ namespace Os.App.Register
     public partial class ClientForm : BaseForm
     {
         private readonly IBaseService<Client> _clientService;
+        private List<ClientViewModel>? clients;
+
         private int _idCurrent = 0;
 
-        public ClientForm()
+        public ClientForm(IBaseService<Client> clientService)
         {
             InitializeComponent();
-            _clientService = ConfigureDI.serviceProvider.GetService<IBaseService<Client>>();
+            _clientService = clientService;
 
             ConfigurarEventos();
             
@@ -108,11 +110,12 @@ namespace Os.App.Register
         {
             try
             {
-                var list = _clientService.Get<ClientViewModel>();
+                clients = _clientService.Get<ClientViewModel>()
+                          .ToList();
 
                 
                 dataGridView1.DataSource = null;
-                dataGridView1.DataSource = list;
+                dataGridView1.DataSource = clients;
 
                 
                 if (dataGridView1.Columns["IdDevice"] != null) dataGridView1.Columns["IdDevice"].Visible = false;

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Os.Repository.Context;
 
@@ -10,9 +11,11 @@ using Os.Repository.Context;
 namespace Os.Repository.Migrations
 {
     [DbContext(typeof(OsContext))]
-    partial class OsContextModelSnapshot : ModelSnapshot
+    [Migration("20251216010128_CorrigirDeviceRemoveIdDevice")]
+    partial class CorrigirDeviceRemoveIdDevice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

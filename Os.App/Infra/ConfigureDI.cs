@@ -74,15 +74,17 @@ namespace Os.App.Infra
                 .ForMember(dest => dest.ClientName,
                 opt => opt.MapFrom(src => src.Client != null ? src.Client.Name : "Desconhecido"));
 
-                cfg.CreateMap<DeviceViewModel, Device>(); ;
+                cfg.CreateMap<DeviceViewModel, Device>(); 
                 cfg.CreateMap<Status, StatusViewModel>().ReverseMap();
 
-                
-                cfg.CreateMap<Device, DeviceViewModel>()
-                   .ForMember(dest => dest.ClientName, opt => opt.MapFrom(src => src.Client != null ? src.Client.Name : "N/A"));
+
+                //cfg.CreateMap<Device, DeviceViewModel>()
+                // .ForMember(dest => dest.ClientName, opt => opt.MapFrom(src => src.Client != null ? src.Client.Name : "N/A"));
+                // cfg.CreateMap<DeviceViewModel, Device>();
+
+
                 cfg.CreateMap<DeviceViewModel, Device>();
 
-                
                 cfg.CreateMap<ServiceOrder, ServiceOrderViewModel>().ReverseMap();
                 cfg.CreateMap<ServiceOrder_has_Service, ServiceOrderItemVM>().ReverseMap();
                 cfg.CreateMap<Products_has_ServiceOrder, ProductOrderItemVM>().ReverseMap();

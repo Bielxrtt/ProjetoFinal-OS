@@ -66,7 +66,7 @@ namespace Os.Service.Service
         {
             var entity = _mapper.Map<TEntity>(inputModel);
             Validate(entity, Activator.CreateInstance<TValidator>());
-            _baseRepository.Insert(entity);
+            _baseRepository.Update(entity);
             var outputModel = _mapper.Map<TOutputModel>(entity);
             return outputModel;
         }

@@ -6,7 +6,7 @@ using Os.App.Base;
 using Os.App.Infra;
 using Os.App.ViewModel;
 using Os.Domain.Base;
-// Atenção: Use o alias correto para a entidade Services se houver conflito de nomes
+
 using ServiceEntity = Os.Domain.Entities.Services;
 using Os.Service.Validators;
 
@@ -38,7 +38,7 @@ namespace Os.App.Register
         {
             try
             {
-                // Limpa formatação de moeda se necessário
+                
                 string priceText = txtPrice.Text.Replace("R$", "").Trim();
 
                 if (!decimal.TryParse(priceText, out decimal price))
@@ -78,7 +78,7 @@ namespace Os.App.Register
             }
             catch (Exception ex)
             {
-                // Mostra a mensagem interna caso seja erro de validação ou banco
+                
                 MessageBox.Show("Erro: " + (ex.InnerException?.Message ?? ex.Message));
             }
         }
@@ -87,8 +87,8 @@ namespace Os.App.Register
         {
             try
             {
-                var list = _serviceService.Get<ServicesViewModel>();
-                dataGridView1.DataSource = list;
+                services = _serviceService.Get<ServicesViewModel>().ToList;
+              
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }

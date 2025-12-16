@@ -109,7 +109,7 @@ namespace Os.App.Register
                 TypeBrand selectedBrand;
                 Enum.TryParse(cboBrand.SelectedValue.ToString(), out selectedBrand);
 
-                var deviceVM = new DeviceViewModel
+                var deviceVM = new Device
                 {
                     Id = _idCurrent,
                     Id_Client = (int)cboClient.SelectedValue,
@@ -121,12 +121,12 @@ namespace Os.App.Register
 
                 if (_idCurrent > 0)
                 {
-                    _deviceService.Update<DeviceViewModel, DeviceViewModel, DeviceValidator>(deviceVM);
+                    _deviceService.Update<Device, Device, DeviceValidator>(deviceVM);
                     MessageBox.Show("Dispositivo atualizado!");
                 }
                 else
                 {
-                    _deviceService.Add<DeviceViewModel, DeviceViewModel, DeviceValidator>(deviceVM);
+                    _deviceService.Add<Device, Device, DeviceValidator>(deviceVM);
                     MessageBox.Show("Dispositivo cadastrado!");
                 }
 

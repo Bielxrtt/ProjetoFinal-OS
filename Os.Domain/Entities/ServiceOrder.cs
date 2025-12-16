@@ -26,7 +26,6 @@ namespace Os.Domain.Entities
 
 
 
-        // Propriedades Simples
 
         public DateTime Date { get; set; } 
 
@@ -54,14 +53,12 @@ namespace Os.Domain.Entities
         public Client Client { get; set; }
 
 
-       // public int Id { get; set; }
         public int IdDevice { get; set; }
 
         public Device Device { get; set; }
 
 
 
-        // Listas (Relacionamentos)
 
         public ICollection<ServiceOrder_has_Service> Services { get; set; }
 
